@@ -1,0 +1,54 @@
+
+******** Bus Stop query - used PostgreSQL ********
+
+select
+busnumber,
+station,
+sum(sub.traveltime) over (partition by busnumber order by busnumber, "time") as totaltraveltime,
+lead("time") over (partition by busnumber order by busnumber, "time") - "time" as timetonextstation
+from
+(
+select
+busnumber,
+station,
+"time",
+"time" - lag("time") over (partition by busnumber order by busnumber, "time") as traveltime
+from
+busstops
+) as sub
+order by
+busnumber,
+"time"
+
+
+
+******** Employees Query Excercise ********
+
+with recursive subs as (
+	select
+		employeeid,
+		managerid,
+		firstname,
+		lastname
+	from
+		employees
+	where
+		employeeid = 2
+	union
+	select
+		emp.employeeid,
+		emp.managerid,
+		emp.firstname,
+		emp.lastname
+	from
+		employees emp
+	inner join subs on subs.employeeid = emp.managerid
+		
+) select
+employeeid,
+firstname,
+lastname
+from
+subs
+where
+employeeID != 2;

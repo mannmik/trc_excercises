@@ -1,0 +1,20 @@
+tr:nth-child(even) {
+    background: #fbffe6;
+}
+
+tr:nth-child(odd) {
+    background: #ced4ff;
+}
+
+table {
+    table-layout: fixed;
+}
+td {
+    border: 1px solid black;
+    width: 33%;
+  }
+
+  .item_complete{
+      text-align: center;
+      vertical-align: middle;
+  }
